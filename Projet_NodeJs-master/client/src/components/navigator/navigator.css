@@ -1,0 +1,110 @@
+
+.header{
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    
+    height: 73.25px;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    justify-content: flex-start;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.site-header__logo{
+    width: 20%;
+}
+.site-header__main-menu{
+    width: 50%;
+    display: flex;
+    color: white;
+}
+
+.site-header__main-menu a,.site-header__main-menu a:hover{
+    color: white;
+    text-decoration: white;
+}
+.site-header__secondary-menu{
+    width: 30%;
+}
+.site-header__logo img{
+    height: 50.44px;
+}
+.site-header__main-menu , .site-header__secondary-menu{
+    display: flex;
+    justify-content: flex-start;
+    list-style: none;
+    height: 100%;
+}
+
+.site-header__main-menu>li, .site-header__secondary-menu>li{
+    transition-duration: 0.3s;
+    position: relative;
+    height: inherit;
+    line-height: 73.25px;
+}
+.site-header__main-menu>li>a, .site-header__secondary-menu>li>a{
+    padding: 0 21px;
+}
+.site-header__main-menu>li:hover,.site-header__secondary-menu>li:hover{
+    background-color: #666;
+    border-bottom: 5px solid lightcoral;
+}
+.site-header__secondary-menu li,a{
+    color: rgb(153, 153, 153);
+    height: inherit;
+}
+
+.site-header__secondary-menu a{
+    text-decoration: none;
+    height: 100%;
+}
+.site-header__secondary-menu a:hover{
+    text-decoration: none;
+    color: rgb(153, 153, 153);
+}
+.first-level-menu>a::after{
+    content: '';
+    display: inline-block;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #ff2200;
+    vertical-align: middle;
+    margin-left: 0.625em;
+}
+.first-level-menu:hover ul{
+    display: block;
+}
+/* .site-header__secondary-menu:last-child .second-level-menu{
+    width: 100%;
+} */
+.second-level-menu{
+    margin: 0;
+    padding: 0;
+    min-width:15.625em;
+    display: none;
+    position: absolute;
+    background-color: #666;
+    text-align: left;
+    list-style: none;
+    /* width: 100%; */
+    /* min-width: 15.625em; */
+    /* -webkit-box-shadow: 0 2px 4px rgba(44, 51, 56, 0.15); */
+    box-shadow: 0 2px 4px rgba(44, 51, 56, 0.15);
+}
+
+.second-level-menu li{
+    padding-left: 21px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.second-level-menu li:hover,.second-level-menu li:hover a{
+    background-color: gray;
+    color: white;
+}
+

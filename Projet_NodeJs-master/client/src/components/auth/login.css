@@ -1,0 +1,96 @@
+.login-body{
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    background-image: url("https://www.moddevices.com/hubfs/assets/images/billboards/duo-pics-carl-mikael-5-812796-edited.jpg");
+    background-repeat: no-repeat;
+    /* background-size: 100%; */
+    background-size: cover;
+}
+.inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+*{
+    margin: 0;
+}
+#login{
+    display: flex;
+    justify-content: center;
+    height: 600px;
+    font-family: "Microsoft YaHei", Tahoma, Helvetica, simsun, sans-serif;
+}
+.login{
+    width: 360px;
+    height: 40px;
+}
+.text_{
+    background-color: rgba(0,0,0,0.5);
+    color: rgba(255,255,255,0.7);
+    border:1px solid rgba(255,255,255,0.3);
+    padding: 15px;
+    margin: 5px 0;
+    font-weight: 100;
+    font-size: 20px;
+    height: 40px;
+
+}
+.text_:hover{
+    border: 1px solid #818181;
+}
+input:-webkit-autofill{
+    background-color: #faea91;
+}
+#login hr{
+    border-color: rgba(255,255,255,0.1);
+}
+.buttons_{
+    font-weight: 500;
+    font-size: 15px;
+    margin: 5px 0;
+    color: white;
+}
+
+.buttons_login{
+    background-color: #0e86ca;
+    border: 1px solid #10a1de;
+}
+.buttons_register{
+    background-color: rgb(214, 0, 0);
+    border: 1px solid rgb(214, 0, 0);
+    text-align: center;
+    text-decoration: none;
+    line-height: 40px;
+}
+.buttons_register:hover{
+    text-decoration: none;
+    color: white;
+}
+.buttons_register:disabled{
+    color:gray;
+}
+.buttons_login:hover{
+    background-color: #1098e5;
+}
+.buttons_register:hover{
+    background-color: #fe0000;
+}
+.login_message{
+    position: absolute;
+    overflow: visible;
+    color: #ff1422;
+}
+.sign-up-input-group{
+    position: relative;
+}
+.sign-up-input-group span{
+    height: 40px;
+    line-height: 40px;
+    margin: 5px 0;
+    white-space: nowrap;
+    position: absolute;
+    top: 0;
+    left: 370px;
+    color: red;
+}

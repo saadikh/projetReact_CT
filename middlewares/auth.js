@@ -15,6 +15,7 @@ function verifyToken(req, res, next) {
                 next();
             }
         })
+        // res.send("connected");
     } else {
         res.status(403).json({
             error: 'No token provided'

@@ -18,6 +18,8 @@ class Navigation extends Component {
                     <NavLink to="#">{userName.substring(0, 1).toUpperCase() + userName.substring(1)}</NavLink>
                     <ul className="second-level-menu">
                         <li><NavLink to="/plugins/upload">Upload my plugin</NavLink></li>
+                        <li><NavLink to="/myPlugins">My plugins</NavLink></li>
+                        
                         <li onClick={this.logout}>Log out</li>
                     </ul>
                 </li>

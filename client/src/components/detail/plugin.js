@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 // import axios from 'axios';
+import {connect} from 'react-redux';
+import{getPluginById} from '../../actions/pluginActions';
+import PropTypes from 'prop-types';
+import {isEmpty} from 'lodash';
 require('./css/pluginDetail.css');
 
 class PluginDetail extends Component {
@@ -19,6 +23,9 @@ class PluginDetail extends Component {
             
     //     })
     // }
+    componentWillMount(){
+        this.props.getPluginById(this.props.match.params.id);
+    }
     getPluginCookie = () => {
         try {
             console.log(this.props);
@@ -34,50 +41,76 @@ class PluginDetail extends Component {
         }
     }
     render() {
-        const plugin = this.getPluginCookie();
-        let tags = plugin.tag.map((element, index) => {
-            return <Link to="#" key={index} className="tag">{element.text}</Link>
-        })
-        let parametres = plugin.parametres.map((element, index) => {
+        let tags;
+        let parametres
+        console.log((this.props.plugin));
+
+        
+        if(!isEmpty(this.props.plugin)){
+            let plugin = this.props.plugin;
+            tags = plugin.tag.map((element, index) => {
+                let pluginsFindByTagPath = {
+                    pathname: '/plugin-store/'+element.id+'/'
+                }
+                return <Link to={pluginsFindByTagPath} key={index} className="tag">{element.text}</Link>
+            })
+            parametres = plugin.parametres.map((element, index) => {
+                return (
+                    <tr key={index} className="parametre-row">
+                        <td>{element.controler}</td>
+                        <td>{element.default}</td>
+                        <td>{element.min}</td>
+                        <td>{element.max}</td>
+                    </tr>
+                )
+    
+            })
+        }
+        
+        if(!isEmpty(this.props.plugin)){
             return (
-                <tr key={index} className="parametre-row">
-                    <td>{element.controler}</td>
-                    <td>{element.default}</td>
-                    <td>{element.min}</td>
-                    <td>{element.max}</td>
-                </tr>
-            )
-
-        })
-        return (
-            <div className="detail-body">
-                <div className="main-box flex-column">
-                    <div className="venteur flex-column">
-                        <span className="font-weight-7 sellor">{plugin.sellerName}</span>
-                        <span>{plugin.siteSellerUrl}</span>
+                <div className="detail-body">
+                    <div className="main-box flex-column">
+                        <div className="venteur flex-column">
+                            <span className="font-weight-7 sellor">{this.props.plugin.sellerName}</span>
+                            <span>{this.props.plugin.siteSellerUrl}</span>
+                        </div>
+                        <h2 className="font-weight-7 creator">{this.props.plugin.creator}</h2>
+                        <img className="plugin-image" src={this.props.plugin.imageUrl} alt=''></img>
+                        <div className="tags-container">{tags}</div>
+                        <p className="desc">{this.props.plugin.description}</p>
+                        <table className="parametre-table">
+                            <thead>
+                                <tr>
+                                    <th>Control</th>
+                                    <th>Default</th>
+                                    <th>Min</th>
+                                    <th>Max</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {parametres}
+                            </tbody>
+                        </table>
                     </div>
-                    <h2 className="font-weight-7 creator">{plugin.creator}</h2>
-                    <img className="plugin-image" src={plugin.imageUrl} alt=''></img>
-                    <div className="tags-container">{tags}</div>
-                    <p className="desc">{plugin.description}</p>
-                    <table className="parametre-table">
-                        <thead>
-                            <tr>
-                                <th>Control</th>
-                                <th>Default</th>
-                                <th>Min</th>
-                                <th>Max</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {parametres}
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-
-
-        );
+            );
+        }else{
+            return(
+                <h1>loading......</h1>
+            )
+        }
+        
     }
 }
-export default PluginDetail;
+PluginDetail.propTypes = {
+    plugin:PropTypes.object.isRequired
+    // getMyPlugins:PropTypes.func.isRequired,
+    // deletePlugin:PropTypes.func.isRequired,
+    // userData:PropTypes.object.isRequired,
+    // auth: PropTypes.object.isRequired
+}
+const mapStateToProps = (state) => ({
+    plugin:state.plugin.pluginAboutToShow
+})
+export default connect(mapStateToProps,{getPluginById})(PluginDetail);

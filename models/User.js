@@ -13,28 +13,12 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
-    // plugins: [{
-    //     type: Object,
-    //     control: {
-    //         type: String
-    //     },
-    //     default: {
-    //         type: Number
-    //     },
-    //     min: {
-    //         type: Number
-    //     },
-    //     max: {
-    //         type: Number
-    //     }
-    // }]
+    },
+    plugins: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'Plugin'
+    }]
+    
 })
 
-// PluginSchema.index({
-//     sellerName: 'text',
-//     creator: 'text',
-//     description: 'text',
-//     tag: 'text'
-// });
 module.exports = User = mongoose.model('User', UserSchema);

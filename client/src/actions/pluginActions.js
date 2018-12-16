@@ -1,5 +1,11 @@
 import axios from 'axios';
-import {GET_PLUGINS,GET_PLUGINS_BY_TAG,GET_PLUGINS_BY_KEYWORD,DELETE_PLUGIN,LOADING_PLUGIN} from './types';
+import {
+    GET_PLUGINS,
+    GET_PLUGINS_BY_TAG,
+    GET_PLUGINS_BY_KEYWORD,
+    LOADING_PLUGIN,
+    GET_PLUGINS_BY_ID
+} from './types';
 export const getPlugins = () => dispatch => {    
     dispatch(setPluginsLoading());
     console.log("getting plugins");
@@ -10,6 +16,18 @@ export const getPlugins = () => dispatch => {
             payload:res.data
         }))
 };
+export const getPluginById = (id) => dispatch => {
+    dispatch(setPluginsLoading());
+    console.log('getPluginById');
+    let url_get_plugins_by_id = '/api/plugin/'+id;
+    axios
+        .get(url_get_plugins_by_id)
+        .then(res => {
+            dispatch({
+            type: GET_PLUGINS_BY_ID,
+            payload: res.data
+        })})
+}
 export const getPluginsByTag = (tag) => dispatch => {    
     dispatch(setPluginsLoading());
     console.log("getting plugins by tag");
@@ -34,14 +52,7 @@ export const getPluginsByKeyWord = (keyword) => dispatch => {
             payload:res.data
         }))
 }
-export const deletePlugin = id => dispatch=>{
-    axios
-        .delete('/api/plugin/'+id)
-        .then(res => dispatch({
-            type:DELETE_PLUGIN,
-            payload:id
-        }))
-};
+
 export const addPlugin  = plugin => dispatch=>{
     axios.post('/api/plugin',plugin)
 }

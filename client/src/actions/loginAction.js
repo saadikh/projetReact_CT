@@ -27,7 +27,8 @@ export const login = (user) => dispatch => {
 
 export const logout = () => dispatch => {
     localStorage.removeItem('jwtToken');
-    localStorage.clear();
+    // localStorage.clear();
     setAuthorizationToken(localStorage.jwtDecode);
+    //on garde id client pour logout, sinon les page myplugins crash
     dispatch(setCurrentUser({}));
 }

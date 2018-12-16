@@ -3,12 +3,13 @@ import axios from 'axios';
 import Tag from './tag';
 import ParametreList from './parametreList';
 import $ from 'jquery';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 // import 'mdbootstrap/css/mdb.css';
 class Upload extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
             sellerName: null,
             siteSellerUrl: null,
             creator: null,
@@ -18,7 +19,9 @@ class Upload extends Component {
             parametres: [],
             imageFile: null
         }
-
+    }
+    static contextTypes = {
+        router: PropTypes.object
     }
     handleSubmit = (event) => {
         event.preventDefault();
@@ -30,7 +33,8 @@ class Upload extends Component {
         data.append("tag", JSON.stringify(this.state.tag));
         data.append("parametres", JSON.stringify(this.state.parametres));
         data.append("imageFile", this.state.imageFile);
-
+        data.append("userId", this.props.auth.user[0]._id);
+        console.log(this.props.auth.user[0]._id);
         axios({
             method: 'post',
             url: '/api/plugin',
@@ -45,6 +49,7 @@ class Upload extends Component {
             .catch(function (error) {
                 console.log(error.response);
             });
+        this.context.router.history.push("/myPlugins");
     }
     handleFileSelected = (event) => {
         event.preventDefault();
@@ -73,23 +78,19 @@ class Upload extends Component {
             parametres: parametres
         })
     }
-
     render() {
         const labelStyle = {
             fontSize: '30px',
             fontWeight: '100'
         };
-
         const font_weight = {
             fontWeight: '100'
         };
-
         const divStyle = {
             width: '60%',
             heigh: 'auto',
             margin: '50px 20%',
         };
-
         const previewImage = {
             height: '44.18px',
             position: 'absolute',
@@ -98,9 +99,9 @@ class Upload extends Component {
         }
         const uploadImage = {
             width: '25%',
-        }        
+        }
+        console.log("render");
         return (
-
             <div style={divStyle}>
                 <h1 className="font-weight-light">Please fill the form to upload your plugin</h1>
                 <br />
@@ -108,7 +109,7 @@ class Upload extends Component {
                     <label style={labelStyle} htmlFor="seller">Seller:</label>
                     <div className="form-row" id="seller">
                         <div className="form-group col-md-6">
-                            <input style={font_weight} type="text" className="form-control" id="sellerName" name="sellerName" placeholder="Enter your name" onChange={this.handleInputChange} />
+                            <input key="sellerName" style={font_weight} type="text" className="form-control" id="sellerName" name="sellerName" placeholder="Enter your name" onChange={this.handleInputChange} />
                         </div>
                         <div className="form-group col-md-6">
                             <input onChange={this.handleInputChange} style={font_weight} type="text" className="form-control" id="siteSellerUrl" name="siteSellerUrl" placeholder="Enter the web site URL of your company" />
@@ -141,8 +142,13 @@ class Upload extends Component {
                     <button className="btn btn-primary btn-lg" type="submit">Upload Plugin</button>
                 </form>
             </div>
-
         )
     }
 };
-export default Upload;
+Upload.propTypes = {
+    auth: PropTypes.object.isRequired
+}
+const mapStateToProps = (state) => ({
+    auth: state.auth
+})
+export default connect(mapStateToProps, {})(Upload);

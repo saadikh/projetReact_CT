@@ -44,7 +44,7 @@ class PluginItem extends Component {
                     <div className="detail">
                         <span id="title">{this.props.plugin.creator}</span>
                         <img className="item-photo" src={this.props.plugin.imageUrl} alt=''></img>
-                        <span className="sub-description">Inspired by <this.inspiredBy></this.inspiredBy></span>
+                        <span className="sub-description">Inspired by {this.props.sellerName}</span>
                         {detailButton}
                     </div>
                 </div>

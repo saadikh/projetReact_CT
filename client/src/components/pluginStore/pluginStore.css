@@ -86,14 +86,16 @@
     box-sizing: border-box;
 }
 
-.store-creator{
+.store-creator,.store-creator:hover{
     display: block;
     text-decoration: none;
     color: #444444;
     font-size: .8em;
 }
-.brand{
+
+.brand, .brand:hover{
     display: block;
+    text-decoration: none;
     color: #883996;
     font-size: .8em;
 }

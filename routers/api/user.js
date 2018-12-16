@@ -31,27 +31,19 @@ function valideInput(data) {
         isValid: isEmpty(errors)
     }
 }
-// router.get('/:id',(req,res) => {
-//     User
-//         .findById(req.params.id)
-//         .then(user => {
-//             res.json(user);
-//         })
-// })
+router.get('/myplugins/:id',(req,res) => {
+    User
+        .findById(req.params.id)
+        .populate('plugins')
+        .exec((error,user) => {
+            if(error){
+                console.log(error);      
+            }else{
+                res.json(user.plugins);
+            }
+        })
+})
 router.post('/', (req, res) => {
-    // setTimeout(()=>{
-    //     const { errors, isValid } = valideInput(req.body);
-    // if (!isValid) {
-    //     res.status(400).send(errors);
-    // } else {
-    //     const newUser = new User({
-    //         username: req.body.username,
-    //         email: req.body.email,
-    //         password: req.body.password
-    //     });
-    //     newUser.save().then(user => res.json(user));
-    // }
-    // },10000)
     const { errors, isValid } = valideInput(req.body);
     if (!isValid) {
         res.status(400).send(errors);
